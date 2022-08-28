@@ -58,6 +58,23 @@
   when:
     - cloud_init_disable_config is defined
     - cloud_init_disable_config == "true"
+- name: copy wait for eth0 script
+  become: true
+  copy:
+    src: "files/wait_for_eth0.sh"
+    dest: "{{ vyos_install_root }}/usr/local/bin/wait_for_eth0.sh"
+    mode: 0755
+- name: Create cloud-init-local.service.d override dir
+  become: true
+  file:
+    path: "{{ vyos_install_root }}/etc/systemd/system/cloud-init-local.service.d"
+    state: directory
+    mode: 0755
+- name: copy cloud-init-local-override.conf
+  become: true
+  copy:
+    src: "files/cloud-init-local-override.conf"
+    dest: "{{ vyos_install_root }}/etc/systemd/system/cloud-init-local.service.d/override.conf"
 - name: Add source-directory to the /etc/network/interfaces
   become: true
   lineinfile:
