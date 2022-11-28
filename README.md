@@ -155,3 +155,15 @@ You need to copy the ISO image with VyOS to /tmp/vyos.iso before running ansible
     ```
     -e enable_ssh=true
     ```
+
+
+- Select the default console in the boot menu. It can be `kvm` or `serial` (default: kvm)
+
+    ```
+    -e grub_console=kvm
+    ```
+
+- Create an image where GRUB is configured to boot VyOS with consistend network devices naming enabled(default: false):
+
+    ```
+    -e consistent_network_device_naming=true
